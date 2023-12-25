@@ -17,7 +17,7 @@ public class LetterCombinationOfAPhoneNumber {
                     '9', new char[]{'w', 'x', 'y', 'z'}
             );
 
-    public List<String> appendCharToStrings(char character, ArrayList<String> input) {
+    public List<String> appendCharToStrings(char character, List<String> input) {
         ArrayList<String> output = new ArrayList<>();
         if(input.isEmpty()) {
             output.add(String.valueOf(character));
