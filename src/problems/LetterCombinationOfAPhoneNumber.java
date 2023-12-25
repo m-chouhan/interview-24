@@ -1,6 +1,7 @@
 package problems;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /** Link to the problem : https://leetcode.com/problems/letter-combinations-of-a-phone-number
  * */
@@ -18,22 +19,15 @@ public class LetterCombinationOfAPhoneNumber {
             );
 
     public List<String> appendCharToStrings(char character, List<String> input) {
-        ArrayList<String> output = new ArrayList<>();
         if(input.isEmpty()) {
-            output.add(String.valueOf(character));
-            return output;
+            return Arrays.asList(String.valueOf(character));
         }
-
-        for(String str : input) {
-            output.add(str + character);
-        }
-        return output;
+        return input.stream().map(str -> str + character).collect(Collectors.toList());
     }
 
     public List<String> letterCombinations(String digits) {
         ArrayList<String> solutions = new ArrayList<>();
-        for(int i = 0; i < digits.length(); ++i) {
-            char digit = digits.charAt(i);
+        for(char digit : digits.toCharArray()) {
             char [] characters = characterMap.get(digit);
             ArrayList<String> updatedSolutions = new ArrayList<>();
             for(char character : characters) {
