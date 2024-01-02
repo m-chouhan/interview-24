@@ -1,14 +1,14 @@
 package problems;
 
-import datastructures.LinkList;
+import datastructures.LinkNode;
 
 public class AddTwoNumbersInLinkList {
     /** Definition for singly-linked list. */
 
-    public LinkList addTwoNumbers(LinkList l1, LinkList l2) {
+    public LinkNode<Integer> addTwoNumbers(LinkNode<Integer> l1, LinkNode<Integer> l2) {
 
         int carryOver = 0;
-        LinkList head = null;
+        LinkNode<Integer> head = null;
 
         while(l1 != null || l2 != null || carryOver != 0) {
 
@@ -17,8 +17,7 @@ public class AddTwoNumbersInLinkList {
 
             // compute value based on numbers and result of previous computation.
             int computedValue = lValue + rValue + carryOver;
-            LinkList newNode = new LinkList(computedValue%10, head);
-            head = newNode;
+            head = new LinkNode<Integer>(computedValue%10, head);
 
             carryOver = computedValue/10;
 
@@ -30,8 +29,8 @@ public class AddTwoNumbersInLinkList {
         return reverseLinklist(head);
     }
 
-    LinkList reverseLinklist(LinkList head) {
-        LinkList previous = null, current = head, next = head.next;
+    LinkNode reverseLinklist(LinkNode head) {
+        LinkNode previous = null, current = head, next = head.next;
         while (next != null) {
             current.next = previous;
 

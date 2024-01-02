@@ -1,6 +1,6 @@
 package problems;
 
-import datastructures.LinkList;
+import datastructures.LinkNode;
 import org.junit.Test;
 
 import java.util.*;
@@ -8,28 +8,28 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 /**
- * https://leetcode.com/problems/add-two-numbers
+ * <a href="https://leetcode.com/problems/add-two-numbers">...</a>
  * */
-public class AddTwoNumbersInLinkListTest {
+public class AddTwoNumbersInLinkNodeTest {
 
     AddTwoNumbersInLinkList subject = new AddTwoNumbersInLinkList();
 
-    LinkList buildLinkList(List<Integer> list) {
-        LinkList head = null;
+    LinkNode buildLinkList(List<Integer> list) {
+        LinkNode head = null;
         for (Integer in : list) {
-            head = new LinkList(in, head);
+            head = new LinkNode(in, head);
         }
         return head;
     }
 
-    LinkList buildLinkList(Integer number) {
-        LinkList head = new LinkList(number % 10);
-        LinkList lastNode = head;
+    LinkNode buildLinkList(Integer number) {
+        LinkNode head = new LinkNode<Integer>(number % 10);
+        LinkNode lastNode = head;
         number = number / 10;
 
         while(number > 0) {
             int lastDigit = number % 10;
-            LinkList currentNode = new LinkList(lastDigit);
+            LinkNode currentNode = new LinkNode(lastDigit);
             lastNode.next = currentNode;
             lastNode = currentNode;
             number = number/10;
@@ -37,7 +37,7 @@ public class AddTwoNumbersInLinkListTest {
         return head;
     }
 
-    int convertLinklistToNumber(LinkList head) {
+    int convertLinklistToNumber(LinkNode<Integer> head) {
         int finalValue = 0, i = 0;
 
         while(head != null) {
@@ -49,21 +49,21 @@ public class AddTwoNumbersInLinkListTest {
 
     @Test
     public void addTwoNumbers() {
-        LinkList output1 = subject.addTwoNumbers(buildLinkList(99), buildLinkList(1));
+        LinkNode output1 = subject.addTwoNumbers(buildLinkList(99), buildLinkList(1));
         int sum1 = convertLinklistToNumber(output1);
         assertEquals(100, sum1);
 
-        LinkList output2 = subject.addTwoNumbers(buildLinkList(111), buildLinkList(1));
+        LinkNode output2 = subject.addTwoNumbers(buildLinkList(111), buildLinkList(1));
         int sum2 = convertLinklistToNumber(output2);
         assertEquals(112, sum2);
     }
 
     @Test
     public void reverseLinklist() {
-        LinkList output = subject.reverseLinklist(buildLinkList(1234));
+        LinkNode output = subject.reverseLinklist(buildLinkList(1234));
         assertEquals(4321, convertLinklistToNumber(output));
 
-        LinkList output1 = subject.reverseLinklist(buildLinkList(1));
+        LinkNode output1 = subject.reverseLinklist(buildLinkList(1));
         assertEquals(1, convertLinklistToNumber(output1));
     }
 }
