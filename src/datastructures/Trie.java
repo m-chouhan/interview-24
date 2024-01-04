@@ -3,7 +3,7 @@ package datastructures;
 import java.util.HashMap;
 
 /**
- * Modified Trie Data structure for word break problem!
+ * Simple Trie Data structure for word break problem!
  * https://leetcode.com/problems/word-break-ii/
  */
 public class Trie {
@@ -19,13 +19,22 @@ public class Trie {
         }
     }
     private final TrieNode rootNode;
-
     Trie() {
         rootNode = new TrieNode('.');
     }
 
+    TrieNode getRoot() { return this.rootNode; }
+
     void addWord(String word) {
         addWord(word.toLowerCase(), 0, rootNode);
+    }
+
+    boolean contains(String word) {
+        return contains(word.toLowerCase(), 0, rootNode);
+    }
+
+    boolean contains(char character) {
+        return rootNode.childNodes.containsKey(character);
     }
 
     private void addWord(String word, int index, TrieNode parentNode) {
@@ -45,10 +54,6 @@ public class Trie {
         }
 
         addWord(word, index + 1, parentNode.childNodes.get(character));
-    }
-
-    boolean contains(String word) {
-        return contains(word.toLowerCase(), 0, rootNode);
     }
 
     private boolean contains(String word, int index, TrieNode parentNode) {
