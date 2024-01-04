@@ -37,10 +37,10 @@ public class TrieStackTest {
 
     @Test
     public void checkRoot() {
-        assertFalse(subject.checkRoot('a'));
-        assertTrue(subject.checkRoot('m'));
-        assertTrue(subject.checkRoot('i'));
-        assertTrue(subject.checkRoot('n'));
+        assertFalse(subject.peekRoot('a'));
+        assertTrue(subject.peekRoot('m'));
+        assertTrue(subject.peekRoot('i'));
+        assertTrue(subject.peekRoot('n'));
     }
 
     @Test
@@ -55,5 +55,8 @@ public class TrieStackTest {
     public void pop() {
         subject.push('m');
         subject.push('y');
+        assertEquals('y', subject.pop());
+        assertEquals('m', subject.pop());
+        assertEquals('.', subject.pop());
     }
 }

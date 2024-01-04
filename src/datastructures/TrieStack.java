@@ -12,28 +12,28 @@ public class TrieStack {
     Trie trie;
     ArrayDeque<Trie.TrieNode> stack;
 
-    TrieStack() {
+    public TrieStack() {
         trie = new Trie();
         stack = new ArrayDeque<>();
         // correct way to start is with root already pushed
         stack.push(trie.getRoot());
     }
 
-    boolean peekAhead(char character) {
+    public boolean peekAhead(char character) {
         if(stack.isEmpty()) return false;
 
         Trie.TrieNode topNode = stack.peek();
         return topNode.childNodes.containsKey(character);
     }
 
-    boolean checkRoot(char character) {
+    public boolean peekRoot(char character) {
         return trie.contains(character);
     }
 
     /* Push a trie node on top of stack.
         '.' implies you are pushing root node on stack.
     * */
-    void push(char character) {
+    public void push(char character) {
         if(character == '.') {
             stack.push(trie.getRoot());
             return;
@@ -50,14 +50,33 @@ public class TrieStack {
         stack.push(topNode.childNodes.get(character));
     }
 
-    char pop() {
+    public char pop() {
         Trie.TrieNode node = stack.pop();
         return node.value;
     }
 
     /** Wrapper method for exposing trie related functions! */
-    void addWord(String word) {
+    public void addWord(String word) {
         trie.addWord(word);
     }
 
+    public boolean isValidWord() {
+        if(stack.isEmpty()) return false;
+        return stack.peek().isTerminalNode;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Trie.TrieNode node : stack) {
+            char toAppend = (node.value == '.' ? ' ' : node.value);
+            builder.insert(0, toAppend);
+        }
+
+        if (!builder.isEmpty()) {
+            builder.deleteCharAt(0);
+        }
+
+        return builder.toString();
+    }
 }
