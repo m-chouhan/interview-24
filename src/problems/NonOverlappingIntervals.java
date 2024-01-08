@@ -3,6 +3,7 @@ package problems;
 import java.util.*;
 
 /**
+ * DP
  * Variant of this was recently asked at microsoft.
  * Leetcode : https://leetcode.com/problems/non-overlapping-intervals
  */
