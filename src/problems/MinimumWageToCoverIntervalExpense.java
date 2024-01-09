@@ -11,6 +11,7 @@ import java.util.*;
  * C = [100, 200]
  * This means the person spent 100 rs in JAN-FEB, and 200 rs in APRIL.
  * Answer is 200 here.
+ * Assumption : No carry over of bank balance from previous months.
  */
 public class MinimumWageToCoverIntervalExpense {
 
@@ -31,7 +32,7 @@ public class MinimumWageToCoverIntervalExpense {
         }
     }
 
-    int countMinimumWage(String []startDates, String []endDates, int [] expenses) {
+    int computeMinimumWage(String []startDates, String []endDates, int [] expenses) {
         ArrayList<Interval> intervalList = new ArrayList<>();
         for(int i = 0; i < startDates.length; ++i) {
             String startTime = startDates[i], endTime = endDates[i];
