@@ -28,7 +28,7 @@ public class NonOverlappingIntervals {
         for(int []interval : intervals) {
             sortedList.add(new Interval(interval[0], interval[1]));
         }
-        Collections.sort(sortedList, (o1, o2) -> o1.start - o2.start);
+        sortedList.sort((o1, o2) -> o1.start - o2.start);
 
         cache = new int[sortedList.size() + 1];
         Arrays.fill(cache, -1);
