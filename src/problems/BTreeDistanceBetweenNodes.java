@@ -7,17 +7,17 @@ package problems;
 public class BTreeDistanceBetweenNodes {
     public static class TreeNode {
         int val;
-        BTreeZigZagTraversal.TreeNode left;
-        BTreeZigZagTraversal.TreeNode right;
+        TreeNode left;
+        TreeNode right;
         TreeNode(int val) { this.val = val; }
-        TreeNode(int val, BTreeZigZagTraversal.TreeNode left, BTreeZigZagTraversal.TreeNode right) {
+        TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
             this.right = right;
         }
     }
 
-    public int findDistance(TreeNode current, int p, int q, int level) {
+    public int findDistance(BTreeDistanceBetweenNodes.TreeNode current, int p, int q, int level) {
         if(current == null) return -1;
         if(p == q) return 0;
 
