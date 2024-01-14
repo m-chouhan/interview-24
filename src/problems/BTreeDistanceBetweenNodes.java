@@ -1,7 +1,7 @@
 package problems;
 
 /**
- * Return distance between two nodes in a binary tree.
+ * Return distance between two nodes in a binary tree with unique values.
  * Leetcode : https://leetcode.com/problems/find-distance-in-a-binary-tree/
  */
 public class BTreeDistanceBetweenNodes {
