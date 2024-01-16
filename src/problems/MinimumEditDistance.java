@@ -40,4 +40,25 @@ public class MinimumEditDistance {
                 Math.min(Math.min(insertCost, removalCost), replaceCost);
         return cache[sourceLen][targetLen];
     }
+
+    /**Iterative approach to the same problem.*/
+    public int minDistanceIterative(String source, String target) {
+        int [][]cache = new int[source.length()+1][target.length()+1];
+
+        for(int sourceLength = 0; sourceLength <= source.length(); ++sourceLength) {
+            for(int targetLength = 0; targetLength <= target.length(); ++targetLength) {
+                if(Math.min(sourceLength, targetLength) == 0) {
+                    cache[sourceLength][targetLength] = Math.max(sourceLength, targetLength);
+                }
+                else {
+                    int insertCost = cache[sourceLength][targetLength - 1] + 1;
+                    int removeCost = cache[sourceLength - 1][targetLength] + 1;
+                    int replaceCost = source.charAt(sourceLength - 1) == target.charAt(targetLength -1) ? 0 : 1;
+                    replaceCost += cache[sourceLength - 1][targetLength - 1];
+                    cache[sourceLength][targetLength] = Math.min(Math.min(insertCost, removeCost), replaceCost);
+                }
+            }
+        }
+        return cache[source.length()][target.length()];
+    }
 }
