@@ -35,7 +35,6 @@ public class BTreeDistanceBetweenNodes {
         if(allChildWithValue) {
             return (leftDistance - level) + (rightDistance - level);
         }
-
         return anyChildWithValidDistance;
     }
 
