@@ -22,8 +22,15 @@ public class Resource {
     synchronized void execute(Task task) throws InterruptedException {
         status = Status.BUSY;
         float sleepMultiplier = (float) task.minConfig.cpu / config.cpu;
+        java.lang.System.out.printf("Executing %s%n", task.name);
         Thread.sleep((long) (2000 * sleepMultiplier));
         status = Status.FREE;
         resourceManager.notifyCompletion(this, task);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(resource id : %d, config : %s, price : %f, status : %s)",
+                id, config, price, status.name());
     }
 }

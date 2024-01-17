@@ -4,13 +4,16 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
+/***
+ * Class to orchestrate between task management and resource management.
+ */
 public class System {
     ResourceManager resourceManager;
-    Deque<Task> taskDeque;
+    TaskManager taskManager;
 
     public System() {
-        resourceManager = new ResourceManager();
-        taskDeque = new ArrayDeque<>();
+        taskManager = new TaskManager();
+        resourceManager = new ResourceManager(taskManager);
     }
 
     boolean allocate(Task task) {
@@ -24,7 +27,7 @@ public class System {
             }
         }
         else {
-            taskDeque.add(task);
+            taskManager.addTask(task);
             return false;
         }
     }
@@ -39,5 +42,9 @@ public class System {
 
     public List<Resource> listResources() {
         return resourceManager.listResources();
+    }
+
+    public boolean hasPendingTasks() {
+        return taskManager.hasPendingTasks() || resourceManager.hasEngagedResources();
     }
 }

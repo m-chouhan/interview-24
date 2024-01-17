@@ -9,16 +9,30 @@ public class SystemTest {
     System system = new System();
 
     @Test
-    public void allocate() {
+    public void allocate() throws InterruptedException{
+        // Create Resources
         system.addResource(new Config(8, 2, Config.Performance.HIGH), 100);
         system.addResource(new Config(4, 2, Config.Performance.MEDIUM), 100);
         system.addResource(new Config(2, 2, Config.Performance.LOW), 10);
+        // Create Tasks
         Task task1 = Task.createTask("task1", new Config(4, 2, Config.Performance.MEDIUM));
         Task task2 = Task.createTask("task2", new Config(2, 2, Config.Performance.LOW));
         Task task3 = Task.createTask("task3", new Config(8, 2, Config.Performance.HIGH));
-        assertTrue(system.allocate(task1));
-        assertTrue(system.allocate(task2));
-        assertTrue(system.allocate(task3));
+        // Create threads
+        Thread thread1 = new Thread(() -> assertTrue(system.allocate(task1)));
+        Thread thread2 = new Thread(() -> assertTrue(system.allocate(task2)));
+        Thread thread3 = new Thread(() -> assertTrue(system.allocate(task3)));
+
+        // act & assert
+        thread1.start();
+        thread2.start();
+        thread3.start();
+
+        thread1.join();
+        thread2.join();
+        thread3.join();
+
+        assertFalse(system.hasPendingTasks());
     }
 
     @Test
@@ -36,4 +50,5 @@ public class SystemTest {
     @Test
     public void removeResource() {
     }
+
 }

@@ -20,6 +20,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("{name : %s, id : %d, }", name, id);
+        return String.format("(task : %s, id : %d)", name, id);
     }
 }
