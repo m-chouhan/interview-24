@@ -25,6 +25,7 @@ public class SystemOrchestrator {
             }
         }
         else {
+            System.out.printf("Adding %s to queue", task);
             taskManager.addTask(task);
             return false;
         }

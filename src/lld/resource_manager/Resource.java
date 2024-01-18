@@ -26,7 +26,7 @@ public class Resource {
         status = Status.BUSY;
         float sleepMultiplier = (float) task.minConfig.cpu / config.cpu;
         java.lang.System.out.printf("Executing %s%n", task.name);
-        Thread.sleep((long) (2000 * sleepMultiplier));
+        Thread.sleep((long) (3000 * sleepMultiplier));
         status = Status.FREE;
         resourceManager.notifyCompletion(this, task);
     }
