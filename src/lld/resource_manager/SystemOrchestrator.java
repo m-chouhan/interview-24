@@ -1,17 +1,15 @@
 package lld.resource_manager;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.List;
 
 /***
  * Class to orchestrate between task management and resource management.
  */
-public class System {
+public class SystemOrchestrator {
     ResourceManager resourceManager;
     TaskManager taskManager;
 
-    public System() {
+    public SystemOrchestrator() {
         taskManager = new TaskManager();
         resourceManager = new ResourceManager(taskManager, new CheapestFirstStrategy());
     }
