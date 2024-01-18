@@ -19,6 +19,9 @@ public class Resource {
         this.resourceManager = resourceManager;
     }
 
+    int getCpu() { return this.config.cpu; }
+    float getPrice() { return this.price; }
+
     synchronized void execute(Task task) throws InterruptedException {
         status = Status.BUSY;
         float sleepMultiplier = (float) task.minConfig.cpu / config.cpu;

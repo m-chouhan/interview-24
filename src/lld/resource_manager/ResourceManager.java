@@ -5,17 +5,15 @@ import java.util.*;
 public class ResourceManager {
     private final List<Resource> resourceList = new ArrayList<>();
     private final TaskManager taskManager;
+    private final AllocationStrategy allocationStrategy;
 
-    ResourceManager(TaskManager taskManager) {
+    ResourceManager(TaskManager taskManager, AllocationStrategy allocationStrategy) {
         this.taskManager = taskManager;
+        this.allocationStrategy = allocationStrategy;
     }
 
     Resource getResource(Config minConfig) {
-        for(Resource resource : resourceList) {
-            if(resource.isFree() && resource.config.isLargerOrEqual(minConfig))
-                return resource;
-        }
-        return null;
+        return allocationStrategy.allocate(resourceList, minConfig);
     }
 
     public void notifyCompletion(Resource resource, Task task) {

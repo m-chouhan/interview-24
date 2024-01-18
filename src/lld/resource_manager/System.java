@@ -13,7 +13,7 @@ public class System {
 
     public System() {
         taskManager = new TaskManager();
-        resourceManager = new ResourceManager(taskManager);
+        resourceManager = new ResourceManager(taskManager, new CheapestFirstStrategy());
     }
 
     boolean allocate(Task task) {
