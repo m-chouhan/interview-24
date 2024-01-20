@@ -47,5 +47,25 @@ public class Event {
     public int getId() {
         return this.id;
     }
+
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    // first user in the list is the organizer
+    User getEventOrganizer() {
+        return participants.getFirst();
+    }
+
+    public boolean overlapsWith(Event event) {
+        boolean case1 = start.isBefore(event.start) && end.isAfter(event.start);
+        boolean case2 = start.isBefore(event.end) && end.isEqual(event.start);
+        return case1 || case2;
+    }
+
 }
 
