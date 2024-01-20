@@ -1,25 +1,29 @@
 package lld.calendar_service;
 import java.util.*;
 
-class User {
+public class User {
     private String name;
-    private List<Event> events;
+    private List<Integer> eventIds;
 
     public User(String name) {
         this.name = name;
-        this.events = new ArrayList<>();
+        this.eventIds = new ArrayList<>();
     }
 
-    public void addEvent(Event event) {
-        events.add(event);
+    public void addEventId(int eventId) {
+        eventIds.add(eventId);
     }
 
-    public List<Event> getEvents() {
-        return events;
+    public List<Integer> getEventIds() {
+        return eventIds;
     }
 
     @Override
     public String toString() {
+        return name;
+    }
+
+    public String getName() {
         return name;
     }
 }

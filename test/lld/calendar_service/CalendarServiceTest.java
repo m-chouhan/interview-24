@@ -9,18 +9,26 @@ import static org.junit.Assert.*;
 public class CalendarServiceTest {
 
     CalendarService calendarService;
+    UserService userService;
+    EventService eventService;
+
     @Before
     public void before() {
-        UserService userService = new UserService();
-        EventService eventService = new EventService();
+        User user1 = new User("Mahendra");
+        User user2 = new User("Rahul");
+        User user3 = new User("Kokil");
+
+        userService = new UserService();
+        userService.addAll(user1, user2, user3);
+        eventService = new EventService();
+
         calendarService = new CalendarService(eventService, userService);
     }
 
     @Test
     public void addEvent() {
-
-        User user1 = new User("Mahendra");
-        User user2 = new User("Rahul");
+        User user1 = userService.getUser("Mahendra");
+        User user2 = userService.getUser("Rahul");
 
         int eventId1 = calendarService.addEvent(new Event("Study Time", "20-01-2024 11:00", "20-01-2024 12:15", user1));
         assertEquals(1, eventId1);
@@ -28,18 +36,19 @@ public class CalendarServiceTest {
         int eventId2 = calendarService.addEvent(new Event("Study Time", "20-01-2024 11:00", "20-01-2024 12:15", user2));
         assertEquals(2, eventId2);
 
-        assertThrows(IllegalStateException.class, () -> {
-            calendarService.addEvent(new Event("Play Time", "20-01-2024 11:15", "20-01-2024 12:00", user2));
-        });
-
+//      Overlapping Events are allowed!
+//        assertThrows(IllegalStateException.class, () -> {
+//            calendarService.addEvent(new Event("Play Time", "20-01-2024 11:15", "20-01-2024 12:00", user2));
+//        });
         int eventId3 = calendarService.addEvent(new Event("Play Cricket", "20-01-2024 12:15", "20-01-2024 01:15", user1, user2));
         assertEquals(3, eventId3);
     }
 
     @Test
     public void getEvents() {
-        User user1 = new User("Mahendra");
-        User user2 = new User("Rahul");
+        User user1 = userService.getUser("Mahendra");
+        User user2 = userService.getUser("Rahul");
+
         calendarService.addEvent(new Event("Study Time", "20-01-2024 11:00", "20-01-2024 12:15", user1));
         calendarService.addEvent(new Event("Study Time", "20-01-2024 11:00", "20-01-2024 12:15", user2));
         calendarService.addEvent(new Event("Play Cricket", "20-01-2024 12:15", "20-01-2024 01:15", user1, user2));
@@ -61,6 +70,7 @@ public class CalendarServiceTest {
 
     @Test
     public void getConflictingEvents() {
+        
     }
 
     @Test

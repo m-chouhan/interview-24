@@ -1,5 +1,6 @@
 package lld.calendar_service;
 import java.util.*;
+import java.util.stream.Collectors;
 
 class CalendarService {
     private final EventService eventService;
@@ -11,11 +12,18 @@ class CalendarService {
     }
 
     public int addEvent(Event event) {
-        return eventService.addEvent(event);
+        int eventId = eventService.addEvent(event);
+        List<User> users = event.getParticipants();
+        for(User user : users) {
+            user.addEventId(eventId);
+        }
+        return eventId;
     }
 
     public List<Event> getEvents(String userName) {
-        return userService.getUser(userName).getEvents();
+        return userService.getUser(userName).getEventIds().stream()
+                .map(eventService::getEvent)
+                .collect(Collectors.toList());
     }
 
     public Event getEventDetails(int eventID) {
