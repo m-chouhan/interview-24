@@ -66,15 +66,44 @@ public class CalendarServiceTest {
 
         Event event3 = calendarService.getEventDetails(3);
         assertEquals("Play Cricket", event3.getTitle());
+
+        assertThrows(RuntimeException.class, () -> {
+            calendarService.getEventDetails(0);
+        });
     }
 
     @Test
     public void getConflictingEvents() {
-        
+        User user1 = userService.getUser("Mahendra");
+        User user2 = userService.getUser("Rahul");
+
+        calendarService.addEvent(new Event("Study Time", "20-01-2024 11:00", "20-01-2024 12:15", user1));
+        calendarService.addEvent(new Event("Study Time", "20-01-2024 11:00", "20-01-2024 12:15", user2));
+        calendarService.addEvent(new Event("Play Cricket", "20-01-2024 12:15", "20-01-2024 01:15", user1, user2));
+        calendarService.addEvent(new Event("Play Tennis", "20-01-2024 01:00", "20-01-2024 01:30", user1));
+
+        String startTime = "20-01-2024 10:00", endTime = "20-01-2024 08:00";
+        List<Event> conflictingEvents1 = calendarService.getConflictingEvents(user1, startTime, endTime);
+        assertEquals(2, conflictingEvents1.size());
+
+        List<Event> conflictingEvents2 = calendarService.getConflictingEvents(user2, startTime, endTime);
+        assertEquals(0, conflictingEvents1.size());
     }
 
     @Test
     public void getRecommendedSlot() {
+        User user1 = userService.getUser("Mahendra");
+        User user2 = userService.getUser("Rahul");
+        User user3 = userService.getUser("Kokil");
+
+        calendarService.addEvent(new Event("Study Time", "20-01-2024 11:00", "20-01-2024 12:15", user1));
+        calendarService.addEvent(new Event("Study Time", "20-01-2024 11:00", "20-01-2024 12:15", user2));
+        calendarService.addEvent(new Event("Study Time", "20-01-2024 12:00", "20-01-2024 14:00", user3));
+
+        String date = "20-01-2024";
+        String slotSize  = "1:00"; //hh:mm
+        List<TimeSlot> recommendedSlots = calendarService.getRecommendedSlots(date, slotSize, user1, user2, user3);
+        assertEquals(2, recommendedSlots.size());
     }
 
 }

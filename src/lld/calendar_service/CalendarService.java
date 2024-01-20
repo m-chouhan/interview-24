@@ -29,4 +29,12 @@ class CalendarService {
     public Event getEventDetails(int eventID) {
         return eventService.getEvent(eventID);
     }
+
+    public List<TimeSlot> getRecommendedSlots(String date, String slotSize, User user1, User user2, User user3) {
+        throw new RuntimeException("Method not implemented!");
+    }
+
+    public List<Event> getConflictingEvents(User user1, String startTime, String endTime) {
+        return null;
+    }
 }
