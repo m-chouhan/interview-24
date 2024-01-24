@@ -52,6 +52,23 @@ public class GenericBinaryTreeTest {
 
     @Test
     public void size() {
+        assertEquals(0, subject.size());
+        subject.add(1);
+        assertEquals(1, subject.size());
+        subject.add(2);
+        assertEquals(2, subject.size());
+        subject.add(3);
+        assertEquals(3, subject.size());
+        subject.remove(1);
+        assertEquals(2, subject.size());
+        subject.remove(2);
+        assertEquals(1, subject.size());
+        subject.remove(2);
+        assertEquals(1, subject.size());
+        subject.remove(3);
+        assertEquals(0, subject.size());
+        subject.remove(3);
+        assertEquals(0, subject.size());
     }
 
     @Test

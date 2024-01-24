@@ -2,12 +2,18 @@ package datastructures;
 
 public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
 
+    int size = 0;
     @Override
     boolean add(T value) {
         if(rootNode == null) {
             rootNode = new TreeNode<T>(value);
+            size++;
             return true;
-        } else return add(rootNode, value);
+        } else {
+            boolean newItemAdded = add(rootNode, value);
+            if(newItemAdded) size++;
+            return newItemAdded;
+        }
     }
 
     private boolean add(TreeNode<T> node, T value) {
@@ -34,6 +40,7 @@ public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
         TreeNode<T>[] pair = searchNode(rootNode, null, value);
         if(pair != null) {
             removeNode(pair[0], pair[1]);
+            size--;
             return true;
         }
         return false;
@@ -79,7 +86,7 @@ public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
 
     @Override
     int size() {
-        return 0;
+        return size;
     }
 
     @Override
