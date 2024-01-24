@@ -46,7 +46,8 @@ public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
         int compare = node.value.compareTo(value);
         if(compare == 0) {
             if(!node.hasChild()) {
-                if(parentNode.left == node) parentNode.left = null;
+                if(parentNode == null) rootNode = null;
+                else if(parentNode.left == node) parentNode.left = null;
                 else parentNode.right = null;
                 return true;
             }
