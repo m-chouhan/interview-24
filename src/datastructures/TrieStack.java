@@ -8,7 +8,6 @@ import java.util.ArrayDeque;
  * Adds more specific functionalites to trie ds.
  */
 public class TrieStack {
-
     Trie trie;
     ArrayDeque<Trie.TrieNode> stack;
 
