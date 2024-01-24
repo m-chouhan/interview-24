@@ -31,34 +31,37 @@ public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
 
     @Override
     boolean remove(T value) {
-        return remove(rootNode, null, value);
+        TreeNode<T>[] pair = searchNode(rootNode, null, value);
+        if(pair != null) {
+            removeNode(pair[0], pair[1]);
+            return true;
+        }
+        return false;
+    }
+
+    private TreeNode<T>[] searchNode(TreeNode<T> node, TreeNode<T> parent, T value) {
+        if(node == null) return null;
+        int comparator = node.value.compareTo(value);
+        if(comparator == 0) return new TreeNode[]{node, parent};
+        return searchNode(comparator > 0 ? node.right : node.left, node, value);
+    }
+
+    private void removeNode(TreeNode<T> node, TreeNode<T> parent) {
+        if(!node.hasChild()) {
+            if(parent == null) rootNode = null;
+            else if(parent.left == node) parent.left = null;
+            else parent.right = null;
+            return;
+        }
+        TreeNode<T> childNode = node.right != null ? node.right : node.left;
+        swap(node, childNode);
+        removeNode(childNode, node);
     }
 
     private void swap(TreeNode<T> nodeA, TreeNode<T> nodeB) {
         T value = nodeA.value;
         nodeA.value = nodeB.value;
         nodeB.value = value;
-    }
-
-    private boolean remove(TreeNode<T> node, TreeNode<T> parentNode, T value) {
-        if(node == null) return false;
-
-        int compare = node.value.compareTo(value);
-        if(compare == 0) {
-            if(!node.hasChild()) {
-                if(parentNode == null) rootNode = null;
-                else if(parentNode.left == node) parentNode.left = null;
-                else parentNode.right = null;
-                return true;
-            }
-            TreeNode<T> nextNode = node.right != null ? node.right : node.left;
-            swap(node, nextNode);
-            return remove(nextNode, node, value);
-        }
-        if(compare < 0) {
-            return remove(node.left, node, value);
-        }
-        return remove(node.right, node, value);
     }
 
     @Override
