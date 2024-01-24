@@ -1,7 +1,11 @@
-package datastructures;
+package datastructures.tree;
 
-public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
+import java.util.ArrayList;
 
+/**
+ * Ensures that the objects in the binary tree remains in a sorted order.
+ * */
+public class SortedBTree<T extends Comparable<T>> extends BTree<T> {
     int size = 0;
     @Override
     boolean add(T value) {
@@ -9,11 +13,8 @@ public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
             rootNode = new TreeNode<T>(value);
             size++;
             return true;
-        } else {
-            boolean newItemAdded = add(rootNode, value);
-            if(newItemAdded) size++;
-            return newItemAdded;
         }
+        return add(rootNode, value);
     }
 
     private boolean add(TreeNode<T> node, T value) {
@@ -21,18 +22,17 @@ public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
         if(compare == 0) {
             return false; // value already exist, no addition operation was performed.
         }
-        else if(compare < 0) {
+        else if(compare > 0) {
             if(node.left != null) return add(node.left, value);
-            else {
-                node.left = new TreeNode<>(value);
-                return true;
-            }
-        }
-        else {
-            if(node.right != null) return add(node.right, value);
-            node.right = new TreeNode<>(value);
+            node.left = new TreeNode<>(value);
+            size++;
             return true;
         }
+
+        if(node.right != null) return add(node.right, value);
+        node.right = new TreeNode<>(value);
+        size++;
+        return true;
     }
 
     @Override
@@ -80,8 +80,8 @@ public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
         if(node == null) return false;
         int comparator = node.value.compareTo(value);
         if(comparator == 0) return true;
-        if(comparator > 0) return contains(node.right, value);
-        else return contains(node.left, value);
+        if(comparator > 0) return contains(node.left, value);
+        else return contains(node.right, value);
     }
 
     @Override
@@ -90,7 +90,16 @@ public class GenericBinaryTree<T extends Comparable<T>> extends Tree<T>{
     }
 
     @Override
-    T[] toArray() {
-        return null;
+    ArrayList<T> toArray() {
+        ArrayList<T> arrayList = new ArrayList<>();
+        traverse(rootNode, arrayList);
+        return arrayList;
+    }
+
+    private void traverse(TreeNode<T> node, ArrayList<T> arrayList) {
+        if(node == null) return;
+        traverse(node.left, arrayList);
+        arrayList.add(node.value);
+        traverse(node.right, arrayList);
     }
 }

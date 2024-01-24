@@ -1,16 +1,17 @@
-package datastructures;
+package datastructures.tree;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import java.util.*;
 
-public class GenericBinaryTreeTest {
+public class SortedBTreeTest {
 
-    GenericBinaryTree<Integer> subject;
+    SortedBTree<Integer> subject;
     @Before
     public void before() {
-        subject = new GenericBinaryTree<>();
+        subject = new SortedBTree<>();
     }
 
     @Test
@@ -73,5 +74,10 @@ public class GenericBinaryTreeTest {
 
     @Test
     public void toArray() {
+        subject.add(10);
+        subject.add(5);
+        subject.add(15);
+        subject.add(12);
+        assertEquals(Arrays.asList(5, 10, 12,15), subject.toArray());
     }
 }

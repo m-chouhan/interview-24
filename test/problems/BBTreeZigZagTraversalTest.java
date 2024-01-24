@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class BTreeZigZagTraversalTest {
+public class BBTreeZigZagTraversalTest {
 
     BTreeZigZagTraversal subject = new BTreeZigZagTraversal();
     @Test

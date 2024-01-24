@@ -1,14 +1,20 @@
-package datastructures;
+package datastructures.tree;
 
-public abstract class Tree<T> {
+import java.util.ArrayList;
+
+/**
+ * Abstract binary tree.
+ * The tree node values MUST be comparable.
+ * */
+public abstract class BTree<T extends Comparable<T>> {
     TreeNode<T> rootNode;
-    class TreeNode<t> {
-        public t value;
+    class TreeNode<T> {
+        public T value;
         public TreeNode left = null, right = null;
-        TreeNode(t value) {
+        TreeNode(T value) {
             this.value = value;
         }
-        TreeNode(t value, TreeNode left, TreeNode right) {
+        TreeNode(T value, TreeNode left, TreeNode right) {
             this.value = value;
             this.left = left;
             this.right = right;
@@ -25,5 +31,5 @@ public abstract class Tree<T> {
     abstract boolean remove(T value);
     abstract boolean contains(T value);
     abstract int size();
-    abstract T[] toArray();
+    abstract ArrayList<T> toArray();
 }
