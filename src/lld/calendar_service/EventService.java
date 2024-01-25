@@ -13,11 +13,6 @@ public class EventService {
         return eventId;
     }
 
-    // TODO: later
-    private boolean checkOverlappingEvent(Event event) {
-        return false;
-    }
-
     private int getUniqueId(Event event) {
         return eventList.size() + 1;
     }

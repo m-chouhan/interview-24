@@ -12,6 +12,7 @@ public class CalendarServiceTest {
     UserService userService;
     EventService eventService;
 
+    EventScheduler scheduler;
     @Before
     public void before() {
         User user1 = new User("Mahendra");
@@ -21,8 +22,8 @@ public class CalendarServiceTest {
         userService = new UserService();
         userService.addAll(user1, user2, user3);
         eventService = new EventService();
-
-        calendarService = new CalendarService(eventService, userService);
+        scheduler = new EventScheduler();
+        calendarService = new CalendarService(eventService, userService, scheduler);
     }
 
     @Test

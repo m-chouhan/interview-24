@@ -1,17 +1,16 @@
 package lld.calendar_service;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 class CalendarService {
     private final EventService eventService;
     private final UserService userService;
+    private final EventScheduler scheduler;
 
-    public CalendarService(EventService eventService, UserService userService) {
+    public CalendarService(EventService eventService, UserService userService, EventScheduler scheduler) {
         this.eventService = eventService;
         this.userService = userService;
+        this.scheduler = scheduler;
     }
 
     public int addEvent(Event event) {
@@ -33,28 +32,16 @@ class CalendarService {
         return eventService.getEvent(eventID);
     }
 
-    public List<TimeSlot> getRecommendedSlots(String date, String slotSize, User user1, User user2, User user3) {
-        throw new RuntimeException("Method not implemented!");
+    public List<TimeSlot> getRecommendedSlots(String date, String slotSize, User... participants) {
+        List<Event> allUserEvents = Arrays.stream(participants)
+                .flatMap(user -> user.getEventIds().stream())
+                .distinct()
+                .map(this::getEventDetails)
+                .toList();
+        return scheduler.getRecommendSlot(new TimeSlot(date), slotSize, allUserEvents);
     }
 
     public List<Event> getConflictingEvents(User user1, String startTime, String endTime) {
-        TimeSlot slot = new TimeSlot(startTime, endTime);
-        List<Event> events = getEvents(user1.getName()).stream()
-                .filter(event ->
-                        slot.contains(event.getStart()) || slot.contains(event.getEnd()))
-                .sorted(Comparator.comparing(Event::getStart))
-                .toList();
-
-        List<Event> overlappingEvents = new ArrayList<>();
-        for (int i = 0; i < events.size(); i++) {
-            for (int j = i + 1; j < events.size(); j++) {
-                if (events.get(i).overlapsWith(events.get(j))) {
-                    overlappingEvents.add(events.get(i));
-                    overlappingEvents.add(events.get(j));
-                }
-            }
-        }
-
-        return overlappingEvents;
+        return scheduler.getConflictingEvents(getEvents(user1.getName()), new TimeSlot(startTime, endTime));
     }
 }
