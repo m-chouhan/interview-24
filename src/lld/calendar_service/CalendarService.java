@@ -40,7 +40,8 @@ class CalendarService {
     public List<Event> getConflictingEvents(User user1, String startTime, String endTime) {
         TimeSlot slot = new TimeSlot(startTime, endTime);
         List<Event> events = getEvents(user1.getName()).stream()
-                .filter(event -> slot.contains(event.getStart()) || slot.contains(event.getEnd()))
+                .filter(event ->
+                        slot.contains(event.getStart()) || slot.contains(event.getEnd()))
                 .sorted(Comparator.comparing(Event::getStart))
                 .toList();
 

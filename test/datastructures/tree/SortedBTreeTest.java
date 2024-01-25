@@ -79,5 +79,9 @@ public class SortedBTreeTest {
         subject.add(15);
         subject.add(12);
         assertEquals(Arrays.asList(5, 10, 12,15), subject.toArray());
+
+        subject.remove(10);
+        subject.add(1);
+        assertEquals(Arrays.asList(1, 5, 12, 15), subject.toArray());
     }
 }

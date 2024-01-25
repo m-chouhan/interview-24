@@ -63,7 +63,7 @@ public class Event {
 
     public boolean overlapsWith(Event event) {
         boolean case1 = start.isBefore(event.start) && end.isAfter(event.start);
-        boolean case2 = start.isBefore(event.end) && end.isEqual(event.start);
+        boolean case2 = start.isBefore(event.end) && end.isAfter(event.end);
         return case1 || case2;
     }
 
