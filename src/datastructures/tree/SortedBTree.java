@@ -23,16 +23,18 @@ public class SortedBTree<T extends Comparable<T>> extends BTree<T> {
             return false; // value already exist, no addition operation was performed.
         }
         else if(compare > 0) {
-            if(node.left != null) return add(node.left, value);
+            if(node.left != null)
+                return add(node.left, value);
             node.left = new TreeNode<>(value);
             size++;
             return true;
+        } else {
+            if (node.right != null)
+                return add(node.right, value);
+            node.right = new TreeNode<>(value);
+            size++;
+            return true;
         }
-
-        if(node.right != null) return add(node.right, value);
-        node.right = new TreeNode<>(value);
-        size++;
-        return true;
     }
 
     @Override
@@ -56,13 +58,12 @@ public class SortedBTree<T extends Comparable<T>> extends BTree<T> {
     private void removeNode(TreeNode<T> node, TreeNode<T> parent) {
         if(!node.hasChild()) {
             if(parent == null) rootNode = null;
-            else if(parent.left == node) parent.left = null;
-            else parent.right = null;
-            return;
+            else parent.removeChild(node);
+        } else {
+            TreeNode<T> [] childNodes = node.right != null ? findSuccessor(node) : findPredessor(node);
+            node.value = childNodes[0].value;
+            removeNode(childNodes[0], childNodes[1]);
         }
-        TreeNode<T> childNode = node.right != null ? node.right : node.left;
-        swap(node, childNode);
-        removeNode(childNode, node);
     }
 
     private void swap(TreeNode<T> nodeA, TreeNode<T> nodeB) {

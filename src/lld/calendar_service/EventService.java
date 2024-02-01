@@ -3,7 +3,6 @@ package lld.calendar_service;
 import java.util.*;
 
 public class EventService {
-
     private List<Event> eventList = new ArrayList<>();
 
     public int addEvent(Event event) {
