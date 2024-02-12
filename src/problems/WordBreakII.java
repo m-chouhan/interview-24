@@ -9,7 +9,6 @@ import java.util.*;
  * https://leetcode.com/problems/word-break-ii/
  * */
 public class WordBreakII {
-
     ArrayList<String> answers = new ArrayList<>();
     public List<String> wordBreak(String input, List<String> wordDict) {
         TrieStack trieStack = new TrieStack();
