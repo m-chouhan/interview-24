@@ -60,7 +60,8 @@ public class SortedBTree<T extends Comparable<T>> extends BTree<T> {
             if(parent == null) rootNode = null;
             else parent.removeChild(node);
         } else {
-            TreeNode<T> [] childNodes = node.right != null ? findSuccessor(node) : findPredessor(node);
+            TreeNode<T> [] childNodes = null;
+//                    node.right != null ? findSuccessor(node) : findPredessor(node);
             node.value = childNodes[0].value;
             removeNode(childNodes[0], childNodes[1]);
         }
