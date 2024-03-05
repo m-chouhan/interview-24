@@ -1,6 +1,5 @@
-package lld.atlassian;
+package lld.atlassian_file_manager;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 

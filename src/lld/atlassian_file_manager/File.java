@@ -1,4 +1,4 @@
-package lld.atlassian;
+package lld.atlassian_file_manager;
 
 public class File {
     int id;

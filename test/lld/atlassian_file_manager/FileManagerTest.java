@@ -1,10 +1,7 @@
-package lld.atlassian;
+package lld.atlassian_file_manager;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package lld.atlassian;
+package lld.atlassian_file_manager;
 
 import java.util.*;
 import java.util.stream.Collectors;
