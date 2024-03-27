@@ -1,7 +1,11 @@
 package problems;
 
-public class BuildTreeFromInorderPreorderTraversal {
-
+/**
+ * Create a tree from its in-order and pre-order traversal.
+ * https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+ * Solution takes additional space.
+ * */
+public class BuildTreeFromTraversal {
     public class TreeNode {
         int val;
         TreeNode left;
